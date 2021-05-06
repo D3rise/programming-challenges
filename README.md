@@ -1,6 +1,5 @@
-# programming-challenges
+# Programming Challenges
 
-Programming Challenges
 ![Programming Challenges](challenges.png)
 
 Current Challenges:
