@@ -6,8 +6,8 @@ export const databaseProviders = [
     useFactory: async () =>
       await createConnection({
         type: 'postgres',
-        host: process.env.POSTGRES_URL,
-        port: Number(process.env.POSTGRES_PORT) || 3306,
+        host: process.env.POSTGRES_HOST,
+        port: Number(process.env.POSTGRES_PORT) || 5432,
         username: process.env.POSTGRES_USERNAME,
         password: process.env.POSTGRES_PASSWORD,
         database: process.env.POSTGRES_DATABASE,

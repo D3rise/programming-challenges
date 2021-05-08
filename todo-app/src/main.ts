@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 

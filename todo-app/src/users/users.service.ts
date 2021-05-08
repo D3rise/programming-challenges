@@ -4,7 +4,7 @@ import {
   DeleteUserDTO,
   UpdateUserDTO,
 } from 'src/dto/create-user.dto';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import { hash, compare } from 'bcrypt';
 import {
