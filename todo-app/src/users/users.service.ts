@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   CreateUserDTO,
   DeleteUserDTO,
   UpdateUserDTO,
-} from 'src/dto/create-user.dto';
+} from 'src/users/users.dto';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import { hash, compare } from 'bcrypt';
@@ -13,11 +13,12 @@ import {
   WrongPasswordError,
   UnknownError,
 } from './users.errors';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('USERS_REPOSITORY') private usersRepository: Repository<User>,
+    @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
   async create(createUserDto: CreateUserDTO): Promise<User> {
@@ -33,6 +34,7 @@ export class UsersService {
       await this.usersRepository.save(user);
       return user;
     } catch (err) {
+      console.error(err);
       throw new UserAlreadyExistsError();
     }
   }

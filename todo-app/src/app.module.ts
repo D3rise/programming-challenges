@@ -8,13 +8,30 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthorizationMiddleware } from './users/users.middlewares';
-import { DatabaseModule } from './database/database.module';
 import { BoardsModule } from './boards/boards.module';
 import { UsersController } from './users/users.controller';
-import helmet from 'helmet';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UsersModule, DatabaseModule, BoardsModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      port: Number(process.env.POSTGRES_PORT) || 5432,
+      host: process.env.POSTGRES_HOST,
+      username: process.env.POSTGRES_USERNAME,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      autoLoadEntities: true,
+      dropSchema: true,
+      synchronize: true,
+    }),
+    UsersModule,
+    BoardsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

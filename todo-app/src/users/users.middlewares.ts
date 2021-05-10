@@ -4,6 +4,7 @@ import {
   NestMiddleware,
   UnauthorizedException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { Repository } from 'typeorm';
@@ -12,7 +13,7 @@ import { User } from './users.entity';
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
   constructor(
-    @Inject('USERS_REPOSITORY') private usersRepository: Repository<User>,
+    @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
